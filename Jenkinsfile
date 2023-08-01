@@ -11,5 +11,28 @@ pipeline{
                 sh 'mvn test'
             }
         }
+        stage('integration test'){
+            steps{
+                sh 'mvn verify -DskipUnitTests'
+            }
+        }
+        stage('Build'){
+            steps{
+                sh 'mvn clean install'
+            }
+        }
+        stage('Build'){
+            steps{
+                sh 'mvn clean install'
+            }
+        }
+        stage('Static code analysis'){
+            steps{
+                withSonarQubeEnv(credentialsId: 'sonar-key') {
+                    sh 'mvn clean package sonar:sonar'
+}
+            }
+        }
+
     }
 }
