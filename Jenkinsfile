@@ -21,11 +21,6 @@ pipeline{
                 sh 'mvn clean install'
             }
         }
-        stage('Build'){
-            steps{
-                sh 'mvn clean install'
-            }
-        }
         stage('Static code analysis'){
             steps{
                 withSonarQubeEnv(credentialsId: 'sonar-key'){
