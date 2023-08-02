@@ -63,5 +63,27 @@ pipeline{
             }
         }
 
+    stage('Docker image build'){
+        steps{
+            script{
+                sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID'
+                sh 'docker tag dockerdemo9/$JOB_NAME:v1.$BUILD_ID'
+            }
+        }
+    }
+
+    stage('Docker image push to docker hub'){
+        steps{
+            script{
+                withCredentials([usernamePassword(credentialsId: 'docker_creds', passwordVariable: 'docker_pass', usernameVariable: 'docker')]) {
+    
+                    }
+
+                sh 'docker login -u ${docker} -p ${docker_pass}'
+                sh 'docker image push dockerdemo9/$JOB_NAME:v1.$BUILD_ID'
+            }
+        }
+    }
+
     }
 }
