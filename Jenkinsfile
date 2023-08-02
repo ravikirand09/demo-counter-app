@@ -42,7 +42,7 @@ pipeline{
                 script{
 
                     def readPomVersion = readMavenPom file: 'pom.xml'
-                    def nexusRepo = readPomVersion.version.endsWith("SNAPSHOT") ? "myapp-release":"myapp-release"
+                    def nexusRepo = readPomVersion.version.endsWith("SNAPSHOT") ? "myapp-snapshot":"myapp-release"
                     nexusArtifactUploader artifacts:
                      [
                         [
@@ -53,7 +53,7 @@ pipeline{
                         ]
                      ], 
                       credentialsId: 'nexus-auth',
-                      groupId: 'ccom.example', 
+                      groupId: 'com.example', 
                       nexusUrl: '54.204.188.160:8081', 
                       nexusVersion: 'nexus3', 
                       protocol: 'http', 
